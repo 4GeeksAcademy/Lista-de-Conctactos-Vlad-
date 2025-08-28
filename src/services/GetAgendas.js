@@ -39,3 +39,38 @@ export const createUser = async (slug) => {
     console.log("Usuario creado:", data); 
     return data; 
 };
+
+
+export const updateUser = async (userId, userData) => {
+    const response = await fetch(`${urlBase}contacts/${userId}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(userData)
+    });
+
+    if (!response.ok) {
+        console.log("No se pudo editar el usuario");
+        throw new Error("No se pudo editar el usuario");
+    }
+
+    const data = await response.json();
+    console.log("Usuario editado:", data);
+    return data;
+};
+
+export const deleteUser = async (userId) => {
+    const response = await fetch(`${urlBase}contacts/${userId}`, {
+        method: "DELETE"
+    });
+
+    if (!response.ok) {
+        console.log("No se pudo borrar el usuario");
+        throw new Error("No se pudo borrar el usuario");
+    }
+
+    const data = await response.json();
+    console.log("Usuario borrado:", data);
+    return data;
+};
